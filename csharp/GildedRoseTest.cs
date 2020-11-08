@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 
 namespace csharp
 {
@@ -24,7 +25,32 @@ namespace csharp
                 new Item {Name = "Aged Brie", SellIn = 2, Quality = 0},
                 new Item {Name = "Elixir of the Mongoose", SellIn = 5, Quality = 7},
                 new Item {Name = "Elixir of the Mongoose", SellIn = 0, Quality = 7},
+                new Item {Name = "Elixir of the Mongoose", SellIn = 3, Quality = 50},
                 new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
+                new Item
+                {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 10,
+                    Quality = 10
+                },
+                new Item
+                {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 5,
+                    Quality = 10
+                },
+                new Item
+                {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 0,
+                    Quality = 10
+                },
+                new Item
+                {
+                    Name = "Backstage passes to a TAFKAL80ETC concert",
+                    SellIn = 2,
+                    Quality = 50
+                },
             };
             _gildedRose = new GildedRose(_itemList);
         }
@@ -83,23 +109,36 @@ namespace csharp
             Assert.LessOrEqual(-1, vest.Quality);
         }
 
+        [Test]
+        public void QualityDoesntExceedLimitOf50()
+        {
+            var pass = _itemList.First(x => x.Name == Backstage && x.Quality == 50);
+            _gildedRose.UpdateQuality();
+            Assert.AreEqual(50,pass.Quality);
+        }
 
         [Test]
         public void BackstagePassQualityIncreasesByTwoWhen10DaysOrLess()
         {
-            var vest = _itemList.First(x => x.Name ==  && x.Quality == 0);
+            var pass = _itemList.First(x => x.Name == Backstage && x.Quality == 10 && x.SellIn == 10);
+            _gildedRose.UpdateQuality();
+            Assert.AreEqual(12, pass.Quality);
         }
 
         [Test]
         public void BackstagePassQualityIncreasesByThreeWhen5DaysOrLess()
         {
-            var vest = _itemList.First(x => x.Name == Vest && x.Quality == 0);
+            var pass = _itemList.First(x => x.Name == Backstage && x.Quality == 10 && x.SellIn == 5);
+            _gildedRose.UpdateQuality();
+            Assert.AreEqual(13, pass.Quality);
         }
 
         [Test]
         public void BackstagePassQualityDropsToZeroAfterConcert()
         {
-            var vest = _itemList.First(x => x.Name == Vest && x.Quality == 0);
+            var pass = _itemList.First(x => x.Name == Backstage && x.Quality == 10 && x.SellIn == 0);
+            _gildedRose.UpdateQuality();
+            Assert.AreEqual(0, pass.Quality);
         }
 
 
