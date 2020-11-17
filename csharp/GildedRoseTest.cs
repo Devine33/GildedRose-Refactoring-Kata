@@ -13,8 +13,10 @@ namespace csharp
         private const string Vest = "+5 Dexterity Vest";
         private const string Brie = "Aged Brie";
         private const string Elixir = "Elixir of the Mongoose";
+        private const string ConjuredElixir = "Conjured Elixir of the Mongoose";
         private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
         private const string Backstage = "Backstage passes to a TAFKAL80ETC concert";
+
         [SetUp]
         public void Setup()
         {
@@ -23,6 +25,7 @@ namespace csharp
                 new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
                 new Item {Name = "+5 Dexterity Vest", SellIn = 0, Quality = 0},
                 new Item {Name = "Aged Brie", SellIn = 2, Quality = 0},
+                new Item {Name = "Aged Brie", SellIn = -2, Quality = 49},
                 new Item {Name = "Elixir of the Mongoose", SellIn = 5, Quality = 7},
                 new Item {Name = "Elixir of the Mongoose", SellIn = 0, Quality = 7},
                 new Item {Name = "Elixir of the Mongoose", SellIn = 3, Quality = 50},
@@ -51,6 +54,7 @@ namespace csharp
                     SellIn = 2,
                     Quality = 50
                 },
+                new Item {Name = "Conjured Elixir of the Mongoose", SellIn = 5, Quality = 7},
             };
             _gildedRose = new GildedRose(_itemList);
         }
@@ -101,20 +105,34 @@ namespace csharp
         [Test]
         public void QualityIsNeverNegative()
         {
-            var vest = _itemList.First(x => x.Name == Vest && x.Quality == 0);
-            _gildedRose.UpdateQuality();
-            _gildedRose.UpdateQuality();
-            _gildedRose.UpdateQuality();
+            var dexVest = _itemList.First(x => x.Name == Vest);
+            var mongooseElixir = _itemList.First(x => x.Name == Elixir);
+            var sulfurasHand = _itemList.First(x => x.Name == Sulfuras);
+            var backstagePass = _itemList.First(x => x.Name == Backstage);
+            var agedBrie = _itemList.First(x => x.Name == Brie);
+            for (int i = 0; i < 100; i++)
+            {
+                _gildedRose.UpdateQuality();
 
-            Assert.LessOrEqual(-1, vest.Quality);
+            }
+            Assert.LessOrEqual(-1, dexVest.Quality);
+            Assert.LessOrEqual(-1, mongooseElixir.Quality);
+            Assert.LessOrEqual(-1, sulfurasHand.Quality);
+            Assert.LessOrEqual(-1, backstagePass.Quality);
+            Assert.LessOrEqual(-1, agedBrie.Quality);
         }
 
         [Test]
         public void QualityDoesntExceedLimitOf50()
         {
             var pass = _itemList.First(x => x.Name == Backstage && x.Quality == 50);
+            var brie = _itemList.First(x => x.Name == Brie && x.Quality == 49);
+
+            _gildedRose.UpdateQuality();
             _gildedRose.UpdateQuality();
             Assert.AreEqual(50,pass.Quality);
+            Assert.AreEqual(50, brie.Quality);
+
         }
 
         [Test]
@@ -142,6 +160,14 @@ namespace csharp
         }
 
 
+        //New requirement
+        [Test]
+        public void ConjuredItemsDegradeTwiceAsFastAsNormal()
+        {
+            var pass = _itemList.First(x => x.Name == ConjuredElixir && x.Quality == 7 && x.SellIn == 5);
+            _gildedRose.UpdateQuality();
 
+            Assert.AreEqual(5,pass.Quality);
+        }
     }
 }
