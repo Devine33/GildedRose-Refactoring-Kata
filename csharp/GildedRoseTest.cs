@@ -169,5 +169,14 @@ namespace csharp
 
             Assert.AreEqual(5,pass.Quality);
         }
+
+        [Test]
+        public void ConjuredBackstageDegradeTwiceAsFastAsNormal()
+        {
+            var pass = _itemList.First(x => x.Name == Backstage && x.Quality == 10 && x.SellIn == 10);
+            _gildedRose.UpdateQuality();
+
+            Assert.AreEqual(10, pass.Quality);
+        }
     }
 }
