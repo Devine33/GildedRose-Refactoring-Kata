@@ -12,15 +12,23 @@ namespace csharp
 
         public void UpdateQuality()
         {
+
+            
             for (var i = 0; i < Items.Count; i++)
             {
+                var isConjured = Items[i].Name.Contains("Conjured");
+                var degradingValue = 1;
+                if (isConjured)
+                {
+                    degradingValue = 2;
+                }
                 if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
                     if (Items[i].Quality > 0)
                     {
                         if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                         {
-                            Items[i].Quality = Items[i].Quality - 1;
+                            Items[i].Quality = Items[i].Quality - degradingValue;
                         }
                     }
                 }
@@ -53,7 +61,7 @@ namespace csharp
 
                 if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                 {
-                    Items[i].SellIn = Items[i].SellIn - 1;
+                    Items[i].SellIn = Items[i].SellIn - degradingValue;
                 }
 
                 if (Items[i].SellIn < 0)
@@ -66,7 +74,7 @@ namespace csharp
                             {
                                 if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                                 {
-                                    Items[i].Quality = Items[i].Quality - 1;
+                                    Items[i].Quality = Items[i].Quality - degradingValue;
                                 }
                             }
                         }
