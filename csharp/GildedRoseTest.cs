@@ -16,7 +16,7 @@ namespace csharp
         private const string ConjuredElixir = "Conjured Elixir of the Mongoose";
         private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
         private const string Backstage = "Backstage passes to a TAFKAL80ETC concert";
-
+        private const string ConjuredBackstage = "Conjured Backstage passes to a TAFKAL80ETC concert";
         [SetUp]
         public void Setup()
         {
@@ -168,15 +168,6 @@ namespace csharp
             _gildedRose.UpdateQuality();
 
             Assert.AreEqual(5,pass.Quality);
-        }
-
-        [Test]
-        public void ConjuredBackstageDegradeTwiceAsFastAsNormal()
-        {
-            var pass = _itemList.First(x => x.Name == Backstage && x.Quality == 10 && x.SellIn == 10);
-            _gildedRose.UpdateQuality();
-
-            Assert.AreEqual(10, pass.Quality);
         }
     }
 }
