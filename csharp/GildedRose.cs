@@ -10,6 +10,19 @@ namespace csharp
             this.Items = Items;
         }
 
+
+        public void UpdateBrie(IList<Item> items)
+        {
+        }
+
+        public void UpdateBackStagePasses(IEnumerable<Item> items)
+        {
+        }
+
+        public void UpdateSulfuras(IEnumerable<Item> items)
+        {
+        }
+
         public void UpdateQuality()
         {
 

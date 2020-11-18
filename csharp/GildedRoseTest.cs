@@ -16,7 +16,7 @@ namespace csharp
         private const string ConjuredElixir = "Conjured Elixir of the Mongoose";
         private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
         private const string Backstage = "Backstage passes to a TAFKAL80ETC concert";
-        private const string ConjuredBackstage = "Conjured Backstage passes to a TAFKAL80ETC concert";
+        private const string ConjuredManaCake = "Conjured Mana Cake";
         [SetUp]
         public void Setup()
         {
@@ -55,6 +55,7 @@ namespace csharp
                     Quality = 50
                 },
                 new Item {Name = "Conjured Elixir of the Mongoose", SellIn = 5, Quality = 7},
+                new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
             };
             _gildedRose = new GildedRose(_itemList);
         }
@@ -168,6 +169,17 @@ namespace csharp
             _gildedRose.UpdateQuality();
 
             Assert.AreEqual(5,pass.Quality);
+        }
+
+
+        [Test]
+        public void ConjuredManaCakeDegradeTwiceAsFastAsNormal()
+        {
+            var pass = _itemList.First(x => x.Name == ConjuredManaCake);
+            var expectedValue = pass.Quality - 2;
+            _gildedRose.UpdateQuality();
+
+            Assert.AreEqual(expectedValue, pass.Quality);
         }
     }
 }
