@@ -7,11 +7,11 @@ using NUnit.Framework;
 
 namespace csharp
 {
-    [UseReporter(typeof(DiffReporter))]
-    [TestFixture]
+    //[UseReporter(typeof(DiffReporter))]
+    //[TestFixture]
     public class ApprovalTest
     {
-        [Test]
+        //[Test]
         public void ThirtyDays()
         {
             
