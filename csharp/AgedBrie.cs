@@ -2,10 +2,6 @@
 {
     class AgedBrie : Item
     {
-        public AgedBrie()
-        {
-        }
-
         public override void UpdateItems(Item item)
         {
             var isConjured = item.Name.Contains("Conjured");

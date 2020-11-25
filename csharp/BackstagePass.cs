@@ -4,18 +4,10 @@ namespace csharp
 {
     class BackstagePass : Item
     {
-        public BackstagePass()
-        {
-        }
-
         public override void UpdateItems(Item item)
         {
             var isConjured = item.Name.Contains("Conjured");
-            var degradingValue = 1;
-            if (isConjured)
-            {
-                degradingValue = 2;
-            }
+            var degradingValue = isConjured ? 2 : 1;
 
             if (item.Quality < 50)
             {

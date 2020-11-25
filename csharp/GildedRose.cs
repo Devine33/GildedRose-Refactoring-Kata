@@ -4,19 +4,19 @@ namespace csharp
 {
     public class GildedRose
     {
-        IList<Item> Items;
+        private readonly IList<Item> _items;
 
-        public GildedRose(IList<Item> Items)
+        public GildedRose(IList<Item> items)
         {
-            this.Items = Items;
+            _items = items;
         }
 
-        public  void UpdateQuality()
+        public void UpdateQuality()
         {
-            foreach (var item in Items)
+            foreach (var item in _items)
             {
-                var  t = item.Create(item.Name, item.Quality, item.SellIn);
-                t.UpdateItems(item);
+                var  currentItem = item.Create(item.Name, item.Quality, item.SellIn);
+                currentItem.UpdateItems(item);
             }
         }
     }
