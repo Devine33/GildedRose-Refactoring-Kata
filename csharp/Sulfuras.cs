@@ -2,9 +2,13 @@
 {
     public class Sulfuras : Item
     {
+
         public Sulfuras()
         {
-            Name = "Sulfuras, Hand of Ragnaros";
+        }
+
+        public override void UpdateItems(Item item)
+        {
         }
     }
 }
