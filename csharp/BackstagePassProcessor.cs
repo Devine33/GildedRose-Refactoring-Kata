@@ -2,7 +2,7 @@
 
 namespace csharp
 {
-    class BackstagePass : Item
+    class BackstagePassProcessor : ItemProcessor
     {
         public override void UpdateItems(Item item)
         {

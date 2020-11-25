@@ -1,6 +1,6 @@
 ﻿namespace csharp
 {
-    public class Sulfuras : Item
+    public class SulfurasProcessor : ItemProcessor
     {
         public override void UpdateItems(Item item)
         {

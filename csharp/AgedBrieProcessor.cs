@@ -1,6 +1,6 @@
 ﻿namespace csharp
 {
-    class AgedBrie : Item
+    class AgedBrieProcessor : ItemProcessor
     {
         public override void UpdateItems(Item item)
         {

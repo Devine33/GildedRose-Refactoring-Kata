@@ -13,9 +13,10 @@ namespace csharp
 
         public void UpdateQuality()
         {
+            var processor = new ItemProcessor();
             foreach (var item in _items)
             {
-                var  currentItem = item.Create(item.Name, item.Quality, item.SellIn);
+                var currentItem = processor.Create(item.Name);
                 currentItem.UpdateItems(item);
             }
         }
